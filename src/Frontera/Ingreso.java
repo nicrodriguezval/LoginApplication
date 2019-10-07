@@ -89,7 +89,7 @@ public class Ingreso extends javax.swing.JPanel {
         
         ValidarLogin validar = new ValidarLogin();
         
-        System.out.println("------------");
+        System.out.println("--------------");
         String resultado = validar.verificarLogin(usuario);
         System.out.println(resultado);
     }//GEN-LAST:event_aceptarBActionPerformed

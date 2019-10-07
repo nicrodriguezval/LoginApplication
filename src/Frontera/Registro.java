@@ -5,6 +5,11 @@
  */
 package Frontera;
 
+import Control.ValidarRegistro;
+import Entidad.Sistema;
+import Entidad.Usuario;
+import java.util.ArrayList;
+
 /**
  *
  * @author Cisco
@@ -33,6 +38,7 @@ public class Registro extends javax.swing.JPanel {
         nombreTF = new javax.swing.JTextField();
         contraseniaTF = new javax.swing.JTextField();
         validarContraseniaTF = new javax.swing.JTextField();
+        AceptarB = new javax.swing.JButton();
 
         jLabel1.setText("Nombre");
 
@@ -40,21 +46,33 @@ public class Registro extends javax.swing.JPanel {
 
         jLabel3.setText("Validar Contraseña");
 
+        AceptarB.setText("Aceptar");
+        AceptarB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AceptarBActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(contraseniaTF, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nombreTF, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(validarContraseniaTF, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(AceptarB))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(contraseniaTF, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nombreTF, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(validarContraseniaTF, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(16, 16, 16))
         );
         layout.setVerticalGroup(
@@ -72,12 +90,39 @@ public class Registro extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(validarContraseniaTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addComponent(AceptarB)
+                .addContainerGap(55, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void AceptarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarBActionPerformed
+        // TODO add your handling code here:
+        Usuario usuario = new Usuario();
+        ValidarRegistro validar = new ValidarRegistro();
+        
+        String nombre, password1, validarPassword;
+        nombre = nombreTF.getText();
+        password1 = contraseniaTF.getText();
+        validarPassword = validarContraseniaTF.getText();
+        
+        usuario.setNombre(nombre);
+        usuario.setPassword(password1);
+        
+        if(validar.verificarLongitufNombre(nombre) && validar.verificarLongitudPassword(password1) && validar.equalPasswords(password1, validarPassword)) {
+            ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+            for(Usuario u : FramePrincipal.sistema.getUsuarios()) usuarios.add(u);
+            usuarios.add(usuario);
+            FramePrincipal.sistema.setUsuarios(usuarios);
+        }
+        
+        String resultado = validar.verificar(usuario, validarPassword);
+        System.out.println(resultado);
+    }//GEN-LAST:event_AceptarBActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AceptarB;
     private javax.swing.JTextField contraseniaTF;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
