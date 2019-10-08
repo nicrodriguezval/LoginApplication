@@ -116,6 +116,7 @@ public class Registro extends javax.swing.JPanel {
             FramePrincipal.sistema.setUsuarios(usuarios);
         }
         
+        System.out.println("--------------");
         String resultado = validar.verificar(usuario, validarPassword);
         System.out.println(resultado);
     }//GEN-LAST:event_AceptarBActionPerformed
