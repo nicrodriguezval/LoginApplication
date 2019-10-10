@@ -6,15 +6,13 @@
 package Control;
 
 import Entidad.Usuario;
-import Entidad.Sistema;
-import Frontera.FramePrincipal;
+import static Frontera.FramePrincipal.sistema;
 
 /**
  *
  * @author Cisco
  */
 public class ValidarLogin {
-    private Sistema sistema = FramePrincipal.sistema;
     
     public ValidarLogin() {
     }

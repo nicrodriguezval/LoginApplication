@@ -108,8 +108,9 @@ public class Registro extends javax.swing.JPanel {
         
         usuario.setNombre(nombre);
         usuario.setPassword(password1);
+        String resultado = validar.verificar(usuario, validarPassword);
         
-        if(validar.verificarLongitufNombre(nombre) && validar.verificarLongitudPassword(password1) && validar.equalPasswords(password1, validarPassword)) {
+        if(validar.verificarLongitufNombre(nombre) && validar.verificarLongitudPassword(password1) && validar.equalPasswords(password1, validarPassword) && !validar.equalUsernames(nombre)) {
             ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
             for(Usuario u : FramePrincipal.sistema.getUsuarios()) usuarios.add(u);
             usuarios.add(usuario);
@@ -117,7 +118,6 @@ public class Registro extends javax.swing.JPanel {
         }
         
         System.out.println("--------------");
-        String resultado = validar.verificar(usuario, validarPassword);
         System.out.println(resultado);
     }//GEN-LAST:event_AceptarBActionPerformed
 
