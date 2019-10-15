@@ -5,6 +5,7 @@
  */
 package Control;
 
+import DAO.UsuarioDAO;
 import Entidad.Usuario;
 import static Frontera.FramePrincipal.sistema;
 
@@ -13,6 +14,7 @@ import static Frontera.FramePrincipal.sistema;
  * @author Cisco
  */
 public class ValidarLogin {
+    private UsuarioDAO dao = new UsuarioDAO();
     
     public ValidarLogin() {
     }
@@ -26,10 +28,14 @@ public class ValidarLogin {
             return("Longitud contraseña incorrecta");
         }
         
-        for(Usuario u : sistema.getUsuarios()) {
+        /*for(Usuario u : sistema.getUsuarios()) {
             if(u.getNombre().equals(usuario.getNombre()) && u.getPassword().equals(usuario.getPassword())) {
                 return("Bienvenido");
             }
+        }*/
+        
+        if(dao.leer(usuario) != null) {
+            return("Bienvenido");
         }
         
         return("Datos incorrectos");
